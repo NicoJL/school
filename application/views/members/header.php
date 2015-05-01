@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url()?>css/style-admin.css">
 	<link rel="stylesheet" href="<?=base_url()?>css/simple-sidebar.css">
+	<link rel="stylesheet" href="<?=base_url()?>css/jquery.dataTables.css">
 </head>
 <body>
 	

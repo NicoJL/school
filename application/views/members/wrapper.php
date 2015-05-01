@@ -9,19 +9,20 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=base_url()?>members/panel/addTeacher">Agregar Maestros</a>
+                    <a href="<?=base_url()?>members/panel/addTeacher">REGISTRO DE MAESTROS</a>
+                </li>
+                <li><a href="<?=base_url()?>members/panel/getTeachers">LISTA DE MAESTROS</a></li>
+                <li>
+                    <a href="<?=base_url()?>members/panel/addGroup">GRUPOS</a>
                 </li>
                 <li>
-                    <a href="<?=base_url()?>members/panel/addGroup">Agregar Grupos</a>
+                    <a href="#">ALUMNOS</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
+                    <a href="#">NOTICIAS</a>
                 </li>
                 <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
+                    <a href="#">ARCHIVOS</a>
                 </li>
                 <li>
                     <a href="#">Services</a>

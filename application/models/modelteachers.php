@@ -11,9 +11,21 @@ class ModelTeachers extends CI_Model
 		return $query;
 	}
 
+	function changeStatus($id,$data){
+		$this->db->where('id_teacher',$id);
+		$this->db->update('school_teachers',$data);
+		return $this->db->affected_rows();
+	}
+
 	function checkTeacher($name){
 		$this->db->where('teacher_nick_name',$name);
 		$query = $this->db->get('school_teachers');
+		return $query;
+	}
+
+	function getAllTeacher(){
+		$this->db->select('id_teacher,teacher_name,teacher_nick_name,teacher_password,teacher_status');
+		$query=$this->db->get('school_teachers');
 		return $query;
 	}
 

@@ -102,6 +102,28 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+	function getTeachers(){
+		$data['title'] = "Lista de maestros";
+		$data['teachers'] = $this->ModelTeachers->getAllTeacher();
+		$data['ruta'] = 'teachers.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/teacherlist');
+		$this->load->view('members/footer');
+		$this->load->view('members/tables');
+		$this->load->view('members/scripts');
+		$this->load->view('members/endfile');
+	}
+
+	function updateStatus(){
+		$id = $this->input->post('id');
+		$data['teacher_status'] = false;
+		$ban = $this->ModelTeachers->changeStatus($id,$data);
+		echo $ban;
+
+	}
+
 }
 
 ?>
