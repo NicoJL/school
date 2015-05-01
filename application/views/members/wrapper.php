@@ -9,10 +9,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?=base_url()?>members/panel/addGroup">Agregar Grupos</a>
+                    <a href="<?=base_url()?>members/panel/addTeacher">Agregar Maestros</a>
                 </li>
                 <li>
-                    <a href="#">Agregar Maestros</a>
+                    <a href="<?=base_url()?>members/panel/addGroup">Agregar Grupos</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>

@@ -1,7 +1,7 @@
 <div class="container container-actions">
 	<div class="row">
 		<div class="col-sm-6 col-xs-offset-3">
-			<p style="text-align:center;font-weight:bold;">AGREGAR GRUPOS</p>
+			<p class="title" style="text-align:center;font-weight:bold;">AGREGAR GRUPOS</p>
 			<form action="<?=base_url()?>members/panel/addGroup" method="post">
 				<div class="form-group">
 					<label for="lstGrade">Grado</label>
