@@ -2,8 +2,11 @@
 
 vendor-prefixes= o ms mos webkit official
 
+azul = #286090
+verde = #449D44
+
 body,html
-	//background rgba(#cbcbcb,0.5)	
+	background rgba(#cbcbcb,0.5)	
 	height 100%
 	margin 0
 	max-width 100%
@@ -14,7 +17,7 @@ body,html
 .container-actions
 	background-color white
 	border-radius 5px
-	border 1px solid rgba(#337AB7,0.5)
+	border 2px solid rgba(#337AB7,0.5)
 	//box-shadow 0px 3px 5px rgba(black,0.5)
 	height auto
 	margin 10px auto
@@ -28,6 +31,20 @@ div.alert
 	
 div.divTeachers
 	margin 10px	
+	
+.glyphicon-user
+	color verde
+	
+.loader
+	border-bottom 2px solid azul
+	border-top 2px solid #8A2EE6
+	border-radius 30px
+	display none
+	height 30px
+	transition 2ms all
+	width 30px
+	animation:loader 500ms infinite linear
+	
 
 .not
 	color red	
@@ -38,5 +55,43 @@ div.divTeachers
 p.title
 	color #337AB7
 	
+.perfil
+	position relative
+	
 .tdButton
 	text-align center	
+	
+@-webkit-keyframes loader
+
+	from 
+		-webkit-transform:  rotate(0deg)
+	to 
+		-webkit-transform rotate(360deg)
+
+@-moz-keyframes loader
+
+	from 
+		-moz-transform:  rotate(0deg)
+	to 
+		-moz-transform rotate(360deg)
+		
+@-ms-keyframes loader
+
+	from 
+		-ms-transform:  rotate(0deg)
+	to 
+		-ms-transform rotate(360deg)		
+		
+
+@-o-keyframes loader
+
+	from 
+		-o-transform:  rotate(0deg)
+	to 
+		-o-transform rotate(360deg)				
+		
+
+@media screen and (min-width: 768px)
+	.perfil
+		position absolute	
+		right 10%

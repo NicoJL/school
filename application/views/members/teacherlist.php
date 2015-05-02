@@ -63,6 +63,7 @@
         <span class="not">¿Realmente deseas dar de baja a este maestro?</span>
       </div>
       <div class="modal-footer">
+      	<span class="loader"></span>
         <button type="button" class="btnConfirmDelete btn btn-danger">Si</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
       </div>

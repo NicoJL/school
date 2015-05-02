@@ -17,7 +17,7 @@ $(function(){
 		$.ajax({
 			url:ruta,
 			beforeSend:function(){
-
+				$('.loader').css('display','inline-block');
 			},
 			type:'post',
 			data:{'id':id},
@@ -28,6 +28,7 @@ $(function(){
 	        complete:function(xhr)
 	        {
 	            $('#myModal').modal('hide');
+	            $('.loader').css('display','none');
 	        },
 			error:function(xhr,error,estado)
 	        {

@@ -13,13 +13,7 @@ class Panel extends CI_Controller {
 
 	public function index()
 	{
-		$data['title'] = "Inicio";
-		$this->load->view('members/header',$data);
-		$this->load->view('members/wrapper');
-		$this->load->view('members/home');
-		$this->load->view('members/1');
-		$this->load->view('members/footer');
-		$this->load->view('members/endfile');
+		$this->checkLogin();
 	}
 
 	function addGroup(){
@@ -47,7 +41,6 @@ class Panel extends CI_Controller {
 		}
 		
 	}
-
 
 	function addTeacher(){
 		$this->form_validation->set_rules('txtName', 'Nombre','required');
@@ -77,8 +70,45 @@ class Panel extends CI_Controller {
 		}
 	}
 
+	function checkLogin(){
+		$this->form_validation->set_rules('txtUser', 'Usuario','required|trim');
+		$this->form_validation->set_rules('txtPass', 'Contraseña', 'trim|required|md5');
+		if($this->form_validation->run()==false){
+			$this->login("");
+		}
+		else{
+			$data['usuario'] = $this->input->post('txtUser');
+			$data['contraseña']= $this->input->post('txtPass');
+			$check = $this->ModelTeachers->checkLogin($data['usuario'],$data['contraseña']);
+			if($check->num_rows() > 0){
+				foreach($check->result() as $row)
+				{
+					$this->session->set_userdata('user',$row->teacher_nick_name);
+					$this->session->set_userdata('id_user',$row->id_teacher);
+					$this->session->set_userdata('type_user',$row->id_type);
+				}
+				$this->inicio();
+			}
+			else{
+				$this->login('Usuario o contraseña incorrectos');
+			}
+		}
+	}
+
+
+	function closeSesion()
+	{
+		$this->session->sess_destroy();
+		$this->index();
+	}
+
+
 	function frmGroups($msj){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
 		$data['title'] = "Alta de Grupos";
+		$data['user'] = $this->session->userdata('user');
 		$data['msj'] = $msj;
 		$data['teachers'] = $this->ModelTeachers->getTeachers();
 		$data['grades'] = $this->ModelGroups->getGrades();
@@ -91,7 +121,11 @@ class Panel extends CI_Controller {
 	}
 
 	function frmTeacher($msj){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
 		$data['title'] = "Alta de Maestros";
+		$data['user'] = $this->session->userdata('user');
 		$data['msj'] = $msj;
 		$data['types'] = $this->ModelTeachers->getTypes();
 		$this->load->view('members/header',$data);
@@ -103,7 +137,11 @@ class Panel extends CI_Controller {
 	}
 
 	function getTeachers(){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
 		$data['title'] = "Lista de maestros";
+		$data['user'] = $this->session->userdata('user');
 		$data['teachers'] = $this->ModelTeachers->getAllTeacher();
 		$data['ruta'] = 'teachers.js';
 		$this->load->view('members/header',$data);
@@ -114,6 +152,27 @@ class Panel extends CI_Controller {
 		$this->load->view('members/tables');
 		$this->load->view('members/scripts');
 		$this->load->view('members/endfile');
+	}
+
+	function inicio(){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Inicio";
+		$data['user'] = $this->session->userdata('user');
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/1');
+		$this->load->view('members/footer');
+		$this->load->view('members/endfile');
+	}
+
+	function login($msj){
+		$data['title'] = "Acceso a usuarios";
+		$data['msj'] = $msj;
+		$this->load->view('members/header',$data);
+		$this->load->view('members/login');
 	}
 
 	function updateStatus(){
