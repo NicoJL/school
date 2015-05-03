@@ -8,28 +8,12 @@
                         Opciones
                     </a>
                 </li>
+                <?php foreach($options->result() as $op){ ?>
                 <li>
-                    <a href="<?=base_url()?>members/panel/addTeacher">REGISTRO DE MAESTROS</a>
+                    <a href="<?=base_url()?>members/panel/<?=$op->option_link?>"><?=$op->option_name?></a>
                 </li>
-                <li><a href="<?=base_url()?>members/panel/getTeachers">LISTA DE MAESTROS</a></li>
-                <li>
-                    <a href="<?=base_url()?>members/panel/addGroup">GRUPOS</a>
-                </li>
-                <li>
-                    <a href="#">ALUMNOS</a>
-                </li>
-                <li>
-                    <a href="#">NOTICIAS</a>
-                </li>
-                <li>
-                    <a href="#">ARCHIVOS</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                <?php } ?>
+
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

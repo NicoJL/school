@@ -109,6 +109,7 @@ class Panel extends CI_Controller {
 		}
 		$data['title'] = "Alta de Grupos";
 		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['msj'] = $msj;
 		$data['teachers'] = $this->ModelTeachers->getTeachers();
 		$data['grades'] = $this->ModelGroups->getGrades();
@@ -126,6 +127,7 @@ class Panel extends CI_Controller {
 		}
 		$data['title'] = "Alta de Maestros";
 		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['msj'] = $msj;
 		$data['types'] = $this->ModelTeachers->getTypes();
 		$this->load->view('members/header',$data);
@@ -143,6 +145,7 @@ class Panel extends CI_Controller {
 		$data['title'] = "Lista de maestros";
 		$data['user'] = $this->session->userdata('user');
 		$data['teachers'] = $this->ModelTeachers->getAllTeacher();
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['ruta'] = 'teachers.js';
 		$this->load->view('members/header',$data);
 		$this->load->view('members/wrapper');
@@ -160,6 +163,7 @@ class Panel extends CI_Controller {
 		}
 		$data['title'] = "Inicio";
 		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$this->load->view('members/header',$data);
 		$this->load->view('members/wrapper');
 		$this->load->view('members/home');

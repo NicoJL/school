@@ -42,6 +42,12 @@ class ModelTeachers extends CI_Model
 	}
 
 
+	function getOptions($id){
+		$query = $this->db->query('select * from school_options where id_option in
+			(select id_option from school_type_options where id_type='.$id.');');
+		return $query;
+	}
+
 	function getTeachers(){
 		$this->db->where('teacher_status',true);
 		$this->db->select('id_teacher,teacher_name');
