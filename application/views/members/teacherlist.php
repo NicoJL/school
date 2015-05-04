@@ -3,6 +3,7 @@
 		<div class="col-xs-10">
 			<div class="table-responsive">
 				<table class="table table-hover table-bordered" id="tblTechers">
+					<caption><strong>LISTA DE MAESTROS</strong></caption>
 					<thead>
 						<tr>
 							<th>
@@ -18,7 +19,7 @@
 								ESTATUS
 							</th>
 							<th style="text-align:center;">
-								EDITAR
+								EDITAR DATOS
 							</th>
 							<th style="text-align:center;">
 								DAR DE BAJA

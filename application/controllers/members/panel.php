@@ -138,6 +138,32 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+
+	function getGroups(){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Lista de grupos";
+		$data['user'] = $this->session->userdata('user');
+		$data['groups'] = $this->ModelGroups->groups();
+		if($this->input->post('lstGroup'))
+			$id = $this->input->post('lstGroup');
+		else
+			$id = 0;
+		$data['listgroups'] = $this->ModelGroups->getGroups($id);
+		$data['liststudents'] = $this->ModelGroups->getStudents($id);
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['ruta'] = 'groups.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/grouplist');
+		$this->load->view('members/footer');
+		$this->load->view('members/tables');
+		$this->load->view('members/scripts');
+		$this->load->view('members/endfile');
+	}
+
 	function getTeachers(){
 		if(!$this->session->userdata('user')){
 			redirect(base_url().'members/panel');
@@ -183,6 +209,14 @@ class Panel extends CI_Controller {
 		$id = $this->input->post('id');
 		$data['teacher_status'] = false;
 		$ban = $this->ModelTeachers->changeStatus($id,$data);
+		echo $ban;
+
+	}
+
+	function updateStatusStudent(){
+		$id = $this->input->post('id');
+		$data['student_status'] = false;
+		$ban = $this->ModelGroups->changeStatus($id,$data);
 		echo $ban;
 
 	}

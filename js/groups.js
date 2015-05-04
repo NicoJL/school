@@ -1,6 +1,10 @@
 $(function(){
 
 	var ruta = $('#ruta').val();
+	$('#lstGroup').on('change',function(){
+		$('#frmGroups').submit();
+	});
+
 	$('.btnDelete').click(function(){
 		 identificador = $(this).data('identificador');
 		$('#myModal').modal('show');
@@ -10,10 +14,10 @@ $(function(){
 
 	$('.btnConfirmDelete').on('click',function(){
 		$(this).attr('disabled','true');
-		deleteTeacher(identificador);
+		deleteStudent(identificador);
 	});
 
-	function deleteTeacher(id){
+	function deleteStudent(id){
 		
 		$.ajax({
 			url:ruta,
@@ -36,7 +40,7 @@ $(function(){
 	        {
 	            alert(xhr+" "+error+" "+estado)
 	        },
-	       timeout:15000
+	        timeout:15000
 
 
 		});
