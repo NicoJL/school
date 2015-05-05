@@ -7,6 +7,7 @@ class Panel extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('ModelGroups');
 		$this->load->model('ModelTeachers');
+		$this->load->model('ModelStudents');
 		$this->form_validation->set_message('required', '%s es un campo requerido');
 
 	}
@@ -42,6 +43,7 @@ class Panel extends CI_Controller {
 		
 	}
 
+
 	function addTeacher(){
 		$this->form_validation->set_rules('txtName', 'Nombre','required');
 		$this->form_validation->set_rules('txtUser', 'Usuario','required|trim');
@@ -69,6 +71,18 @@ class Panel extends CI_Controller {
 
 		}
 	}
+
+
+	function changeGroup(){
+		$data['id_group'] = $this->input->post('id_group');
+		$data['id_student'] = $this->input->post('id_student');
+		$query = $this->ModelStudents->changeGroup($data);
+		if($query)
+			echo true;
+		else
+			echo false;
+	}
+
 
 	function checkLogin(){
 		$this->form_validation->set_rules('txtUser', 'Usuario','required|trim');
@@ -145,13 +159,21 @@ class Panel extends CI_Controller {
 		}
 		$data['title'] = "Lista de grupos";
 		$data['user'] = $this->session->userdata('user');
-		$data['groups'] = $this->ModelGroups->groups();
 		if($this->input->post('lstGroup'))
 			$id = $this->input->post('lstGroup');
 		else
 			$id = 0;
-		$data['listgroups'] = $this->ModelGroups->getGroups($id);
-		$data['liststudents'] = $this->ModelGroups->getStudents($id);
+		if($this->session->userdata('type_user') == 1){
+			$data['groups'] = $this->ModelGroups->groups();
+			$data['listgroups'] = $this->ModelGroups->getGroups($id);
+			$data['liststudents'] = $this->ModelGroups->getStudents($id);
+		}
+		else{
+			$data['groups'] = $this->ModelGroups->groupsType($this->session->userdata('id_user'));
+			//$data['listgroups'] = $this->ModelGroups->getGroupType($id,$this->session->userdata('id_user'));
+			$data['listgroups'] = $this->ModelGroups->getGroups($id);
+			$data['liststudents'] = $this->ModelGroups->getStudentsType($id,$this->session->userdata('id_user'));
+		}
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['ruta'] = 'groups.js';
 		$this->load->view('members/header',$data);
