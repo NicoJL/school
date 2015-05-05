@@ -27,7 +27,7 @@ class ModelGroups extends CI_Model
 
 	function checkGroup($grade,$teacher,$group){
 		$this->db->where('id_grade',$grade);
-		$this->db->where('id_teacher',$teacher);
+		//$this->db->where('id_teacher',$teacher);
 		$this->db->where('group_name',$group);
 		$query = $this->db->get('school_groups');
 		return $query;
