@@ -17,6 +17,7 @@ class Panel extends CI_Controller {
 		$this->checkLogin();
 	}
 
+
 	function addGroup(){
 		$this->form_validation->set_rules('txtPass', 'Contraseña', 'trim|required|md5');
 		if($this->form_validation->run()==false){
@@ -73,6 +74,15 @@ class Panel extends CI_Controller {
 	}
 
 
+	function allowStudent(){
+		$id = $this->input->post('id');
+		$data['student_status'] = true;
+		$ban = $this->ModelGroups->changeStatus($id,$data);
+		echo $ban;
+
+	}
+
+
 	function changeGroup(){
 		$data['id_group'] = $this->input->post('id_group');
 		$data['id_student'] = $this->input->post('id_student');
@@ -81,6 +91,14 @@ class Panel extends CI_Controller {
 			echo true;
 		else
 			echo false;
+	}
+
+
+	function changeTeacher(){
+		$data['id_group'] = $this->input->post('id_group');
+		$data['id_teacher'] = $this->input->post('id_teacher');
+		$ban = $this->ModelGroups->changeTeacher($data);
+		echo $ban;
 	}
 
 
@@ -117,6 +135,21 @@ class Panel extends CI_Controller {
 	}
 
 
+	function editTeacher(){
+		$data = array();
+		$data = $this->input->post();
+		$query = $this->ModelTeachers->getPassT($data['id_teacher']);
+		if($query->num_rows() > 0){
+			foreach ($query->result() as $t) {
+				if(strcmp($data['teacher_password'], $t->teacher_password) != 0)
+					$data['teacher_password'] = md5($data['teacher_password']);
+			}
+		}
+		$ban = $this->ModelTeachers->editTeacher($data);
+		echo $ban;
+	}
+
+
 	function frmGroups($msj){
 		if(!$this->session->userdata('user')){
 			redirect(base_url().'members/panel');
@@ -134,6 +167,24 @@ class Panel extends CI_Controller {
 		$this->load->view('members/footer');
 		$this->load->view('members/endfile');
 	}
+
+
+	function getStudentsDisabled(){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Lista de alumnos desabilitados";
+		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['liststudents'] = $this->ModelStudents->getStudentsDisabled();
+		$data['ruta'] = 'sdisabled.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/grouplistdisabled');
+		$this->includes();
+	}
+
 
 	function frmTeacher($msj){
 		if(!$this->session->userdata('user')){
@@ -170,10 +221,11 @@ class Panel extends CI_Controller {
 		}
 		else{
 			$data['groups'] = $this->ModelGroups->groupsType($this->session->userdata('id_user'));
-			//$data['listgroups'] = $this->ModelGroups->getGroupType($id,$this->session->userdata('id_user'));
-			$data['listgroups'] = $this->ModelGroups->getGroups($id);
+			$data['listgroups'] = $this->ModelGroups->getGroupType($id,$this->session->userdata('id_user'));
+			//$data['listgroups'] = $this->ModelGroups->getGroups($id);
 			$data['liststudents'] = $this->ModelGroups->getStudentsType($id,$this->session->userdata('id_user'));
 		}
+		$data['teachers'] = $this->ModelTeachers->getTeachers();
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['ruta'] = 'groups.js';
 		$this->load->view('members/header',$data);
@@ -205,6 +257,16 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+
+	function includes(){
+		
+		$this->load->view('members/footer');
+		$this->load->view('members/tables');
+		$this->load->view('members/scripts');
+		$this->load->view('members/endfile');
+	}
+
+
 	function inicio(){
 		if(!$this->session->userdata('user')){
 			redirect(base_url().'members/panel');
@@ -220,12 +282,14 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+
 	function login($msj){
 		$data['title'] = "Acceso a usuarios";
 		$data['msj'] = $msj;
 		$this->load->view('members/header',$data);
 		$this->load->view('members/login');
 	}
+
 
 	function updateStatus(){
 		$id = $this->input->post('id');
@@ -234,6 +298,7 @@ class Panel extends CI_Controller {
 		echo $ban;
 
 	}
+
 
 	function updateStatusStudent(){
 		$id = $this->input->post('id');

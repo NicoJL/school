@@ -48,6 +48,14 @@ class ModelTeachers extends CI_Model
 		return $query;
 	}
 
+
+	function getPassT($id){
+		$this->db->where('id_teacher',$id);
+		$this->db->select('teacher_password');
+		$query = $this->db->get('school_teachers');
+		return $query;
+	}
+
 	function getTeachers(){
 		$this->db->where('teacher_status',true);
 		$this->db->select('id_teacher,teacher_name');
@@ -59,6 +67,14 @@ class ModelTeachers extends CI_Model
 	function getTypes(){
 		$query = $this->db->get('school_types');
 		return $query;
+	}
+
+
+	function editTeacher($data){
+		$this->db->query('update school_teachers set teacher_name="'.$data['teacher_name'].'", 
+			teacher_nick_name="'.$data['teacher_nick_name'].'",teacher_password="'.$data['teacher_password'].'" 
+			where id_teacher='.$data['id_teacher'].';');
+		return $this->db->affected_rows();
 	}
 
 }

@@ -1,6 +1,7 @@
 $(function(){
 
-	var ruta = $('#ruta').val() , rutaChangeG = $('#rutaChangeG').val();
+	var ruta = $('#ruta').val() , rutaChangeG = $('#rutaChangeG').val(),
+	rutaChangeT = $('#rutaChangeT').val() , groupId = $('#txtIdGroupT').val();
 
 	$('#lstGroup').on('change',function(){
 		$('#frmGroups').submit();
@@ -29,6 +30,16 @@ $(function(){
 		deleteStudent(identificador);
 	});
 
+	$('#btnChangeT').click(function(){
+		$(this).attr('disabled','true');
+		changeTeacher();
+
+	});
+
+	$('#btnChangeTeacher').click(function(){
+		$('#modalChangeTeacher').modal('show');
+	});
+
 	$('#lstChangeG').on('change',function(){
 		group = $(this).val();
 	});
@@ -46,13 +57,51 @@ $(function(){
 				if(response)
 					ren.css('background-color','#E86C19');
 				else
-					alert('ocurrio un error agregar el nuevo grupo');
+					alert('ocurrio un error al agregar el nuevo grupo');
 			},
 	        complete:function(xhr)
 	        {
 	            $('#modalChangeG').modal('hide');
 	            $('.loader').css('display','none');
 	            $('#btnAceptG').removeAttr('disabled');
+	        },
+			error:function(xhr,error,estado)
+	        {
+	            alert(xhr+" "+error+" "+estado)
+	        },
+	        timeout:15000
+
+
+		});
+	}
+
+
+	$('#lstTeacher').change(function(){
+		teacherId = $(this).val();
+		teacherName = $('option:selected',this).text();
+	});
+
+
+	function changeTeacher(){
+		$.ajax({
+			url:rutaChangeT,
+			beforeSend:function(){
+				$('.loader').css('display','inline-block');
+			},
+			type:'post',
+			data:{'id_group':groupId , 'id_teacher':teacherId},
+			dataTye:'text',
+			success:function(response){
+				if(response)
+					$('.pTeacher').html('<strong>MAESTRO: </strong>'+teacherName);
+				else
+					alert('ocurrio un error al agregar el nuevo grupo');
+			},
+	        complete:function(xhr)
+	        {
+	            $('#modalChangeTeacher').modal('hide');
+	            $('.loader').css('display','none');
+	            $('#btnChangeT').removeAttr('disabled');
 	        },
 			error:function(xhr,error,estado)
 	        {

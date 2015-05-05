@@ -18,7 +18,10 @@
 		<div class="col-xs-10">
 			<?php  foreach($listgroups->result() as $dg){ ?>
 			<p class="title"><strong>GRUPO <?=$dg->id_grade.' '.$dg->group_name?></strong></p>
-			<p><strong>MAESTRO: </strong><?=' '.$dg->teacher_name?></p>
+			<p class="pTeacher"><strong>MAESTRO: </strong><?=' '.$dg->teacher_name?></p>
+			<button class="btn btn-sm btn-warning" id="btnChangeTeacher">Cambiar maestro</button>
+			<input type="hidden" id="txtIdGroupT" value="<?=$dg->id_group?>">
+			<span class="loader"></span>
 			<?php } ?>
 			
 		</div>
@@ -94,6 +97,7 @@
 <div>
 	<input type="hidden" id="ruta" value='<?=base_url()?>members/panel/updateStatusStudent'>
 	<input type="hidden" id="rutaChangeG" value='<?=base_url()?>members/panel/changeGroup'>
+	<input type="hidden" id="rutaChangeT" value='<?=base_url()?>members/panel/changeTeacher'>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -142,6 +146,32 @@
       	<span class="loader"></span>
         <button type="button" class="btn btn-primary btnAceptG" id="btnAceptG">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+
+<!-- Modal Change Teacher -->
+<div class="modal fade" id="modalChangeTeacher" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cambio de maestro</h4>
+      </div>
+      <div class="modal-body">
+	      <select name="lstTeacher" id="lstTeacher" class="form-control">
+	      	<option value="">----</option>
+	       	<?php foreach($teachers->result() as $t){?>
+	       		<option value="<?=$t->id_teacher?>"><?=$t->teacher_name?></option>
+	       	<?php } ?>	
+	      </select>
+      </div>
+      <div class="modal-footer">
+      	<span class="loader"></span>
+        <button type="button" class="btnChangeT btn btn-primary" id="btnChangeT">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
       </div>
     </div>
   </div>

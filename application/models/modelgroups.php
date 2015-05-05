@@ -12,6 +12,12 @@ class ModelGroups extends CI_Model
 	}
 
 
+	function changeTeacher($data){
+		$this->db->query('update school_groups set id_teacher='.$data['id_teacher'].' where id_group='.$data['id_group'].';');
+		return $this->db->affected_rows();
+	}
+
+
 	function changeStatus($id,$data){
 		$this->db->where('id_student',$id);
 		$this->db->update('school_students',$data);
