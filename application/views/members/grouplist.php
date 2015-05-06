@@ -20,6 +20,8 @@
 			<p class="title"><strong>GRUPO <?=$dg->id_grade.' '.$dg->group_name?></strong></p>
 			<p class="pTeacher"><strong>MAESTRO: </strong><?=' '.$dg->teacher_name?></p>
 			<button class="btn btn-sm btn-warning" id="btnChangeTeacher">Cambiar maestro</button>
+			<button class="btn btn-sm btn-primary" id="bntChangePass">Cambiar contraseña</button>
+			<span id="spnPass" class="ok"></span>
 			<input type="hidden" id="txtIdGroupT" value="<?=$dg->id_group?>">
 			<span class="loader"></span>
 			<?php } ?>
@@ -98,6 +100,7 @@
 	<input type="hidden" id="ruta" value='<?=base_url()?>members/panel/updateStatusStudent'>
 	<input type="hidden" id="rutaChangeG" value='<?=base_url()?>members/panel/changeGroup'>
 	<input type="hidden" id="rutaChangeT" value='<?=base_url()?>members/panel/changeTeacher'>
+	<input type="hidden" id="rutaChangePass" value='<?=base_url()?>members/panel/changePass'>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -171,6 +174,32 @@
       <div class="modal-footer">
       	<span class="loader"></span>
         <button type="button" class="btnChangeT btn btn-primary" id="btnChangeT">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cambio de contraseña de acceso</h4>
+      </div>
+      <div class="modal-body">
+        <form action="">
+        	<div class="control-group">
+        		<label for="txtNewPass">Contraseña nueva</label>
+        		<input type="text" id="txtNewPass" name="txtNesPass" class="form-control" />
+        	</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      	<span class="loader"></span>
+        <button type="button" class="btnConfirmPass btn btn-primary" id="btnConfirmPass">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
       </div>
     </div>

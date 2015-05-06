@@ -12,6 +12,13 @@ class ModelGroups extends CI_Model
 	}
 
 
+	function changePass($data){
+		$this->db->query('update school_groups set group_password="'.$data['group_password'].'" 
+			where id_group='.$data['id_group'].';');
+		return $this->db->affected_rows();
+	}
+
+
 	function changeTeacher($data){
 		$this->db->query('update school_groups set id_teacher='.$data['id_teacher'].' where id_group='.$data['id_group'].';');
 		return $this->db->affected_rows();

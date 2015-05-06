@@ -94,6 +94,17 @@ class Panel extends CI_Controller {
 	}
 
 
+	function changePass(){
+		$data['id_group'] = $this->input->post('id_group');
+		$data['group_password'] = md5($this->input->post('group_password'));
+		$query = $this->ModelGroups->changePass($data);
+		if($query)
+			echo true;
+		else
+			echo false;
+	}
+
+
 	function changeTeacher(){
 		$data['id_group'] = $this->input->post('id_group');
 		$data['id_teacher'] = $this->input->post('id_teacher');

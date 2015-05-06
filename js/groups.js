@@ -1,7 +1,9 @@
 $(function(){
 
 	var ruta = $('#ruta').val() , rutaChangeG = $('#rutaChangeG').val(),
-	rutaChangeT = $('#rutaChangeT').val() , groupId = $('#txtIdGroupT').val();
+	rutaChangeT = $('#rutaChangeT').val() , groupId = $('#txtIdGroupT').val(),
+	rutaPass = $('#rutaChangePass').val();
+	$('#btnConfirmPass').attr('disabled','true');
 
 	$('#lstGroup').on('change',function(){
 		$('#frmGroups').submit();
@@ -30,6 +32,11 @@ $(function(){
 		deleteStudent(identificador);
 	});
 
+
+	$('#btnConfirmPass').click(function(){
+		changePass();
+	});
+
 	$('#btnChangeT').click(function(){
 		$(this).attr('disabled','true');
 		changeTeacher();
@@ -42,6 +49,15 @@ $(function(){
 
 	$('#lstChangeG').on('change',function(){
 		group = $(this).val();
+	});
+
+	$('#txtNewPass').keyup(function(){
+		$('#btnConfirmPass').removeAttr('disabled');
+	});
+
+	$('#bntChangePass').click(function(){
+		$('#txtNewPass').val('');
+		$('#modalChangePass').modal('show');
 	});
 
 	function changeGroup(id,id_student){
@@ -81,6 +97,40 @@ $(function(){
 		teacherName = $('option:selected',this).text();
 	});
 
+	function changePass(){
+		newPass = $('#txtNewPass').val();
+		if(newPass != ""){
+			$.ajax({
+				url:rutaPass,
+				beforeSend:function(){
+					$('.loader').css('display','inline-block');
+				},
+				type:'post',
+				data:{'id_group':groupId , 'group_password':newPass},
+				dataTye:'text',
+				success:function(response){
+					if(response)
+						$('#spnPass').text('Contraseña modificada');
+					else
+						alert('revisa el inicio de sesión en este grupo con la nueva contraseña');
+				},
+		        complete:function(xhr)
+		        {
+		            $('#modalChangePass').modal('hide');
+		            $('.loader').css('display','none');
+		            $('#btnConfirmPass').attr('disabled','true');
+		        },
+				error:function(xhr,error,estado)
+		        {
+		            alert(xhr+" "+error+" "+estado)
+		        },
+		        timeout:15000
+
+			});
+		}
+		else
+			alert('la contraseña nueva no puede ser un valor vacio');
+	}
 
 	function changeTeacher(){
 		$.ajax({
@@ -95,7 +145,7 @@ $(function(){
 				if(response)
 					$('.pTeacher').html('<strong>MAESTRO: </strong>'+teacherName);
 				else
-					alert('ocurrio un error al agregar el nuevo grupo');
+					alert('ocurrio un error al cambiar el maestro');
 			},
 	        complete:function(xhr)
 	        {
@@ -108,7 +158,6 @@ $(function(){
 	            alert(xhr+" "+error+" "+estado)
 	        },
 	        timeout:15000
-
 
 		});
 	}
