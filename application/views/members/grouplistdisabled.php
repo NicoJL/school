@@ -75,7 +75,7 @@
       </div>
       <div class="modal-footer">
       	<span class="loader"></span>
-        <button type="button" class="btnConfirmAllow btn btn-danger" id="btnConfirmAllow">Si</button>
+        <button type="button" class="btnConfirmAllow btn btn-warning" id="btnConfirmAllow">Si</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
       </div>
     </div>

@@ -47,6 +47,14 @@ $(function(){
 		$('#modalChangeTeacher').modal('show');
 	});
 
+	$('#btnFile').click(function(){
+		$('#modalFile').modal('show');
+	});
+
+	$('#inputFile').change(function(){
+
+	});
+
 	$('#lstChangeG').on('change',function(){
 		group = $(this).val();
 	});
@@ -55,7 +63,7 @@ $(function(){
 		$('#btnConfirmPass').removeAttr('disabled');
 	});
 
-	$('#bntChangePass').click(function(){
+	$('#btnChangePass').click(function(){
 		$('#txtNewPass').val('');
 		$('#modalChangePass').modal('show');
 	});
@@ -83,7 +91,7 @@ $(function(){
 	        },
 			error:function(xhr,error,estado)
 	        {
-	            alert(xhr+" "+error+" "+estado)
+	            alert(xhr+" "+error+" "+estado);
 	        },
 	        timeout:15000
 
@@ -122,7 +130,7 @@ $(function(){
 		        },
 				error:function(xhr,error,estado)
 		        {
-		            alert(xhr+" "+error+" "+estado)
+		            alert(xhr+" "+error+" "+estado);
 		        },
 		        timeout:15000
 
@@ -155,7 +163,7 @@ $(function(){
 	        },
 			error:function(xhr,error,estado)
 	        {
-	            alert(xhr+" "+error+" "+estado)
+	            alert(xhr+" "+error+" "+estado);
 	        },
 	        timeout:15000
 
@@ -183,12 +191,25 @@ $(function(){
 	        },
 			error:function(xhr,error,estado)
 	        {
-	            alert(xhr+" "+error+" "+estado)
+	            alert(xhr+" "+error+" "+estado);
 	        },
 	        timeout:15000
 
 
 		});
+	}
+
+
+	function uploadFile(e){
+		e.preventDefault();
+		var rutaFile = $('#rutaFile').val();
+		$('#divProgress').css('width','0');
+		var files = e.target.files();
+		if(window.FormData){
+			for(var i = 0; i<files.length; i++){
+				var file = files[i];
+			}
+		}
 	}
 
 });

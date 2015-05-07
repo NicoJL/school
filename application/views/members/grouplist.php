@@ -20,7 +20,8 @@
 			<p class="title"><strong>GRUPO <?=$dg->id_grade.' '.$dg->group_name?></strong></p>
 			<p class="pTeacher"><strong>MAESTRO: </strong><?=' '.$dg->teacher_name?></p>
 			<button class="btn btn-sm btn-warning" id="btnChangeTeacher">Cambiar maestro</button>
-			<button class="btn btn-sm btn-primary" id="bntChangePass">Cambiar contraseña</button>
+			<button class="btn btn-sm btn-primary" id="btnChangePass">Cambiar contraseña</button>
+			<button class="btn btn-sm btn-success" id="btnFile">Subir archivo</button>
 			<span id="spnPass" class="ok"></span>
 			<input type="hidden" id="txtIdGroupT" value="<?=$dg->id_group?>">
 			<span class="loader"></span>
@@ -101,6 +102,7 @@
 	<input type="hidden" id="rutaChangeG" value='<?=base_url()?>members/panel/changeGroup'>
 	<input type="hidden" id="rutaChangeT" value='<?=base_url()?>members/panel/changeTeacher'>
 	<input type="hidden" id="rutaChangePass" value='<?=base_url()?>members/panel/changePass'>
+	<input type="hidden" id="rutaFile" value='<?=base_url()?>members/panel/upload'>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -201,6 +203,33 @@
       	<span class="loader"></span>
         <button type="button" class="btnConfirmPass btn btn-primary" id="btnConfirmPass">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+
+<!-- Modal Files -->
+<div class="modal fade" id="modalFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Subir archivo</h4>
+      </div>
+      <div class="modal-body">
+      	<input type="file" id="inputFile" />
+      	<p class="pLoader"></p>
+      	<div class="progress">
+		  <div class="progress-bar" id="divProgress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+		 
+  		  </div>
+		</div>
+      </div>
+      <div class="modal-footer">
+      	<span class="loader"></span>
+        <button type="button" class="btnConfirmFile btn btn-primary" id="btnConfirmFile">Agregar archivo</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

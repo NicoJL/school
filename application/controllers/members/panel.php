@@ -319,6 +319,27 @@ class Panel extends CI_Controller {
 
 	}
 
+	function upload(){
+		$config['upload_path']="./uploads/";
+		$config['allowed_types']='gif|png|jpg|doc|docx|pdf';
+		$config['max_size']='2048';
+		$config['max_width']='0';
+		$config['max_height']='0';
+		$this->load->library('upload',$config);
+		if(!$this->upload->do_upload("user_file"))
+		{
+			//$data['mensaje']="Inserte la imagen correcta";
+			//$error=$this->upload->display_errors('<div class="error">','</div>');
+			//$this->frmProducto($data);
+			echo 'error';
+		}
+		else
+		{
+			$data=$this->upload->data();
+			echo $data['file_name'];
+		}
+	}
+
 }
 
 ?>
