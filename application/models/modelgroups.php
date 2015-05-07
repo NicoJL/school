@@ -6,8 +6,36 @@ class ModelGroups extends CI_Model
 		parent::__construct();
 	}
 
+	function addFile($data){
+		$this->db->trans_start();
+		$file = $this->db->query('insert into school_files(file_name) values ("'.$data['file_name'].'")');
+		if($file){
+			$this->db->select_max('id_file','mayor');
+			$query = $this->db->get('school_files');
+			foreach($query->result() as $max){
+				$id_file = $max->mayor;
+			}
+			$result = $this->db->query('insert into school_group_files (id_group,id_file)values('.$data['id_group'].','.$id_file.')');
+		}
+		$this->db->trans_complete();
+		return $result;
+	}
+
 	function addGroup($data){
 		$query = $this->db->insert('school_groups',$data);
+		return $query;
+	}
+
+	function getFile($id){
+		if($id > 0){
+			$query = $this->db->query('select f.file_name , fg.group_file_date from school_files f 
+				inner join school_group_files fg on f.id_file = fg.id_file where fg.id_group = '.$id.';');
+			
+		}
+		else{
+			$query = $this->db->query('select f.file_name , fg.group_file_date from school_files f inner join school_group_files fg
+			on f.id_file = fg.id_file where fg.id_group = (select max(id_group) from school_groups);');
+		}
 		return $query;
 	}
 

@@ -2,7 +2,8 @@ $(function(){
 
 	var ruta = $('#ruta').val() , rutaChangeG = $('#rutaChangeG').val(),
 	rutaChangeT = $('#rutaChangeT').val() , groupId = $('#txtIdGroupT').val(),
-	rutaPass = $('#rutaChangePass').val();
+	rutaPass = $('#rutaChangePass').val() , nameFile;
+	$('#spnPass').text('');
 	$('#btnConfirmPass').attr('disabled','true');
 
 	$('#lstGroup').on('change',function(){
@@ -32,6 +33,7 @@ $(function(){
 		deleteStudent(identificador);
 	});
 
+	$('#btnConfirmFile').click(addFiles);
 
 	$('#btnConfirmPass').click(function(){
 		changePass();
@@ -48,12 +50,15 @@ $(function(){
 	});
 
 	$('#btnFile').click(function(){
+		document.querySelector('#divProgress').style.width = '0%';
+		$('#btnConfirmFile').attr('disabled','true');
+		$('#pLoader').text('');
+		$('#inputFile').val('');
+		$('#txtFile').val('');
 		$('#modalFile').modal('show');
 	});
 
-	$('#inputFile').change(function(){
-
-	});
+	$('#inputFile').on('change',uploadFile);
 
 	$('#lstChangeG').on('change',function(){
 		group = $(this).val();
@@ -67,6 +72,38 @@ $(function(){
 		$('#txtNewPass').val('');
 		$('#modalChangePass').modal('show');
 	});
+
+
+	function addFiles(){
+		rutaAddFile = $('#rutaAddFile').val();
+		$.ajax({
+
+			url:rutaAddFile,
+			type:'post',
+			data:{'id_group':groupId,'file_name':$('#txtFile').val()},
+			dataTye:'text',
+			beforeSend:function(){
+				$('#btnConfirmFile').attr('disabled','true');
+				$('.loader').css('display','inline-block');
+			},
+			success:function(response){
+				if(response)
+					$('#spnPass').text('archivo guardado en el grupo');
+				else
+					alert('hubo un error al insertar el archivo');
+			},
+			complete:function(){
+				$('#modalFile').modal('hide');
+	            $('.loader').css('display','none');
+	            $('#btnConfirmFile').removeAttr('disabled');
+			},
+			error:function(xhr,error,estado){
+				alert(xhr+" "+error+" "+estado);
+			},
+			timeout:15000
+
+		});
+	}
 
 	function changeGroup(id,id_student){
 		$.ajax({
@@ -203,12 +240,47 @@ $(function(){
 	function uploadFile(e){
 		e.preventDefault();
 		var rutaFile = $('#rutaFile').val();
-		$('#divProgress').css('width','0');
-		var files = e.target.files();
+		document.querySelector('#divProgress').style.width = '0%';
+		$('#pLoader').text('');
+		var files = e.target.files;
 		if(window.FormData){
 			for(var i = 0; i<files.length; i++){
 				var file = files[i];
+					if(file.size<=2097152){
+						if(file.type.match(/image|pdf|doc|docx.*/)){
+							var FD = new FormData();
+							FD.append('user_file',file);
+							ajax = new XMLHttpRequest();
+							ajax.open('POST',rutaFile,true);
+							ajax.addEventListener('load',function(e){
+								if(this.status == 200){
+									if(this.response!='error'){
+										$('#txtFile').val(this.response);
+										nameFile = this.response;
+										$('#pLoader').text('Archivo cargado');
+										$('#btnConfirmFile').removeAttr('disabled');
+									}
+									else{
+										$('#pLoader').text('No se pudo subir el archivo');
+									}
+								}
+							});
+							$('#pLoader').text('Subiendo el archivo....');
+							ajax.upload.addEventListener('progress',function(e){
+								if(e.lengthComputable){
+									document.querySelector('#divProgress').style.width = ((e.loaded / e.total) * 100)+'%';
+								}
+							});
+							ajax.send(FD);
+					}else{
+						$('#pLoader').text('El tipo de archivo no esta permitido');
+					}
+				}else{
+					$('#pLoader').text('El archivo supera los 2Mb permitidos');
+				}
 			}
+		}else{
+			$('#pLoader').text('Utiliza un navegador mas moderno para realizar esta operación');
 		}
 	}
 

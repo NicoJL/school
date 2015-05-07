@@ -18,6 +18,18 @@ class Panel extends CI_Controller {
 	}
 
 
+	function addFile(){
+		$data['id_group'] = $this->input->post('id_group');
+		$data['file_name'] = $this->input->post('file_name');
+		$query = $this->ModelGroups->addFile($data);
+		if($query)
+			echo true;
+		else
+			echo false;
+
+	}
+
+
 	function addGroup(){
 		$this->form_validation->set_rules('txtPass', 'Contraseña', 'trim|required|md5');
 		if($this->form_validation->run()==false){
@@ -237,6 +249,7 @@ class Panel extends CI_Controller {
 			$data['liststudents'] = $this->ModelGroups->getStudentsType($id,$this->session->userdata('id_user'));
 		}
 		$data['teachers'] = $this->ModelTeachers->getTeachers();
+		$data['files'] = $this->ModelGroups->getFile($id);
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
 		$data['ruta'] = 'groups.js';
 		$this->load->view('members/header',$data);

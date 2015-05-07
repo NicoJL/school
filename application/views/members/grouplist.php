@@ -96,6 +96,17 @@
 			</div>
 		</div>
 	</div>
+</div><hr>
+<div class="container divFiles">
+	<div class="row">
+		<div class="col-xs-10">
+			<p class="ok">ARCHIVOS</p>
+			<?php foreach($files->result() as $f){?>
+				<a href="<?=base_url()?>uploads/<?=$f->file_name?>" target="_blank" title="visualizar/descargar archivo"><?=$f->file_name?></a>
+				<p>Subido el <?=$f->group_file_date?></p>
+			<?php } ?>
+		</div>
+	</div>
 </div>
 <div>
 	<input type="hidden" id="ruta" value='<?=base_url()?>members/panel/updateStatusStudent'>
@@ -103,6 +114,7 @@
 	<input type="hidden" id="rutaChangeT" value='<?=base_url()?>members/panel/changeTeacher'>
 	<input type="hidden" id="rutaChangePass" value='<?=base_url()?>members/panel/changePass'>
 	<input type="hidden" id="rutaFile" value='<?=base_url()?>members/panel/upload'>
+	<input type="hidden" id="rutaAddFile" value='<?=base_url()?>members/panel/addFile'>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -219,7 +231,8 @@
       </div>
       <div class="modal-body">
       	<input type="file" id="inputFile" />
-      	<p class="pLoader"></p>
+      	<p class="pLoader" id="pLoader"></p>
+      	<input type="hidden" name="txtFile" id="txtFile" />
       	<div class="progress">
 		  <div class="progress-bar" id="divProgress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
 		 
