@@ -98,12 +98,12 @@
 	</div>
 </div><hr>
 <div class="container divFiles">
+	<button class="btn btn-md btn-primary" id="btnShowFiles">Ver archivos</button>
 	<div class="row">
-		<div class="col-xs-10">
-			<p class="ok">ARCHIVOS</p>
+		<div class="col-xs-10 divContainerFiles" id="divContainerFiles">
 			<?php foreach($files->result() as $f){?>
 				<a href="<?=base_url()?>uploads/<?=$f->file_name?>" target="_blank" title="visualizar/descargar archivo"><?=$f->file_name?></a>
-				<p>Subido el <?=$f->group_file_date?></p>
+				<p style="font-size:10px;">Subido el <?=$f->group_file_date?></p>
 			<?php } ?>
 		</div>
 	</div>

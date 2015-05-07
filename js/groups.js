@@ -58,6 +58,10 @@ $(function(){
 		$('#modalFile').modal('show');
 	});
 
+	$('#btnShowFiles').click(function(){
+		$('#divContainerFiles').slideToggle();
+	});
+
 	$('#inputFile').on('change',uploadFile);
 
 	$('#lstChangeG').on('change',function(){
