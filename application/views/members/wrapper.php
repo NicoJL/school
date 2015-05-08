@@ -13,6 +13,7 @@
                     <a href="<?=base_url()?>members/panel/<?=$op->option_link?>"><?=$op->option_name?></a>
                 </li>
                 <?php } ?>
+                <li><a href="<?=base_url()?>members/panel/addNews">AGREGAR AVISO</a></li>
                
               
             </ul>

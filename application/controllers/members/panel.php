@@ -8,6 +8,7 @@ class Panel extends CI_Controller {
 		$this->load->model('ModelGroups');
 		$this->load->model('ModelTeachers');
 		$this->load->model('ModelStudents');
+		$this->load->model('ModelNews');
 		$this->form_validation->set_message('required', '%s es un campo requerido');
 
 	}
@@ -56,6 +57,31 @@ class Panel extends CI_Controller {
 		
 	}
 
+	function addNews(){
+		$this->form_validation->set_rules('txtTitle','Título','required');
+		$this->form_validation->set_rules('txtContent','Contenido','required');
+		$this->form_validation->set_rules('rdoPro','Noticia destacada','required');
+		if($this->form_validation->run()==false){
+			$this->frmNews('');
+		}
+		else{
+			$data['id_teacher'] = $this->session->userdata('id_user');
+			$data['id_notice_category'] = $this->input->post('slctCategory');
+			$data['notice_title'] = $this->input->post('txtTitle');
+			$data['notice_content'] = $this->input->post('txtContent');
+			$data['notice_picture'] = $this->input->post('txtFile');
+			$data['notice_prominent'] = $this->input->post('rdoPro');
+			$query = $this->ModelNews->addNews($data);
+			if($query > 0){
+				$this->inicio();
+			}
+			else
+			{
+				$this->frmNews('Error al insertat el registro');
+			}
+
+		}
+	}
 
 	function addTeacher(){
 		$this->form_validation->set_rules('txtName', 'Nombre','required');
@@ -191,6 +217,26 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+	function frmNews($msj){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Alta de Avisos";
+		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['msj'] = $msj;
+		$data['categories'] = $this->ModelNews->getCategories();
+		$data['ruta'] = 'news.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/addnews');
+		$this->load->view('members/footer');
+		$this->load->view('members/scripts');
+		$this->load->view('members/tinymce');
+		$this->load->view('members/endfile');
+
+	}
 
 	function getStudentsDisabled(){
 		if(!$this->session->userdata('user')){
@@ -298,6 +344,7 @@ class Panel extends CI_Controller {
 		$data['title'] = "Inicio";
 		$data['user'] = $this->session->userdata('user');
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['news'] = $this->ModelNews->getNews();
 		$this->load->view('members/header',$data);
 		$this->load->view('members/wrapper');
 		$this->load->view('members/home');
