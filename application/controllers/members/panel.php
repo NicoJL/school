@@ -308,6 +308,25 @@ class Panel extends CI_Controller {
 		$this->load->view('members/endfile');
 	}
 
+	function getNews(){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Lista de noticias";
+		$data['user'] = $this->session->userdata('user');
+		$data['news'] = $this->ModelNews->getNews();
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['ruta'] = 'teachers.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/news');
+		$this->load->view('members/footer');
+		$this->load->view('members/tables');
+		$this->load->view('members/scripts');
+		$this->load->view('members/endfile');
+	}
+
 	function getTeachers(){
 		if(!$this->session->userdata('user')){
 			redirect(base_url().'members/panel');

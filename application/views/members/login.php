@@ -28,7 +28,7 @@
 <body>
 	<div class="container container-login">
 		<div class="row">
-			<div class="col-sm-5 col-sm-offset-3 col-xs-9 col-xs-offset-1 divLogin">
+			<div class="col-sm-4 col-sm-offset-4 col-xs-9 col-xs-offset-1 divLogin">
 				<p style="text-align:center;font-weight:bold;color:#286090;">INGRESO DE USUARIOS</p>
 				<form action="<?=base_url()?>members/panel/checkLogin" method="post">
 					<div class="form-group">
