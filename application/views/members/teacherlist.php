@@ -50,8 +50,8 @@
 	</div>
 </div>
 <div>
-	<input type="hidden" id="ruta" value='<?=base_url()?>members/panel/updateStatus'>
-	<input type="hidden" id="rutaEdit" value='<?=base_url()?>members/panel/editTeacher'>
+	<input type="hidden" id="ruta" value='<?=base_url()?>members/panel/updateStatus' />
+	<input type="hidden" id="rutaEdit" value='<?=base_url()?>members/panel/editTeacher' />
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

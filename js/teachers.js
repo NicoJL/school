@@ -63,7 +63,7 @@ $(function(){
 	        },
 			error:function(xhr,error,estado)
 	        {
-	            alert(xhr+" "+error+" "+estado)
+	            alert(xhr+" "+error+" "+estado);
 	        },
 	       timeout:15000
 

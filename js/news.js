@@ -14,7 +14,7 @@ $(function(){
 			for(var i = 0; i<files.length; i++){
 				var file = files[i];
 					if(file.size<=2097152){
-						if(file.type.match(/image|pdf|doc|docx.*/)){
+						if(file.type.match(/image.*/)){
 							var FD = new FormData();
 							FD.append('user_file',file);
 							ajax = new XMLHttpRequest();

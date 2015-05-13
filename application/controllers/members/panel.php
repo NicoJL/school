@@ -73,7 +73,7 @@ class Panel extends CI_Controller {
 			$data['notice_prominent'] = $this->input->post('rdoPro');
 			$query = $this->ModelNews->addNews($data);
 			if($query > 0){
-				$this->inicio();
+				$this->getNews();
 			}
 			else
 			{
@@ -183,6 +183,35 @@ class Panel extends CI_Controller {
 		$this->index();
 	}
 
+	function editNew(){
+		
+		$id = $this->uri->segment(4);
+		$this->form_validation->set_rules('txtTitle','Título','required');
+		$this->form_validation->set_rules('txtContent','Contenido','required');
+		$this->form_validation->set_rules('rdoPro','Noticia destacada','required');
+		if($this->form_validation->run()==false){
+			$this->frmEditNews('',$id);
+		}
+		else{
+			$id = $this->input->post('txtId');
+			$data['id_teacher'] = $this->session->userdata('id_user');
+			$data['id_notice_category'] = $this->input->post('slctCategory');
+			$data['notice_title'] = $this->input->post('txtTitle');
+			$data['notice_content'] = $this->input->post('txtContent');
+			$data['notice_picture'] = $this->input->post('txtFile');
+			$data['notice_prominent'] = $this->input->post('rdoPro');
+			$query = $this->ModelNews->editNotice($data,$id);
+			if($query > 0){
+				$this->getNews();
+			}
+			else
+			{
+				$this->frmEditNews('No se modificaron datos',$id);
+			}
+
+		}
+	}
+
 
 	function editTeacher(){
 		$data = array();
@@ -196,6 +225,27 @@ class Panel extends CI_Controller {
 		}
 		$ban = $this->ModelTeachers->editTeacher($data);
 		echo $ban;
+	}
+
+	function frmEditNews($msj,$id){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Edición de avisos";
+		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['msj'] = $msj;
+		$data['categories'] = $this->ModelNews->getCategories();
+		$data['notice'] = $this->ModelNews->showNotice($id);
+		$data['ruta'] = 'news.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/editnews');
+		$this->load->view('members/footer');
+		$this->load->view('members/scripts');
+		$this->load->view('members/tinymce');
+		$this->load->view('members/endfile');
 	}
 
 
@@ -316,7 +366,7 @@ class Panel extends CI_Controller {
 		$data['user'] = $this->session->userdata('user');
 		$data['news'] = $this->ModelNews->getNews();
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
-		$data['ruta'] = 'teachers.js';
+		$data['ruta'] = 'noticelist.js';
 		$this->load->view('members/header',$data);
 		$this->load->view('members/wrapper');
 		$this->load->view('members/home');
@@ -344,6 +394,15 @@ class Panel extends CI_Controller {
 		$this->load->view('members/tables');
 		$this->load->view('members/scripts');
 		$this->load->view('members/endfile');
+	}
+
+	function deleteNew(){
+		$id = $this->input->post('id');
+		$query = $this->ModelNews->deleteNew($id);
+		if($query > 0)
+			echo true;
+		else
+			echo false;
 	}
 
 

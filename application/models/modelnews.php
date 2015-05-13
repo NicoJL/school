@@ -12,6 +12,19 @@ class ModelNews extends CI_Model
 		return $this->db->affected_rows();
 	}
 
+	function deleteNew($id){
+		$this->db->where('id_notice',$id);
+		$this->db->delete('school_notices');
+		return $this->db->affected_rows();
+
+	}
+
+	function editNotice($data,$id){
+		$this->db->where('id_notice',$id);
+		$this->db->update('school_notices',$data);
+		return $this->db->affected_rows();
+	}
+
 	function getCategories(){
 		$query = $this->db->get('school_notice_categories');
 		return $query;
@@ -25,6 +38,12 @@ class ModelNews extends CI_Model
 		$query = $this->db->get();
 		return $query;
 
+	}
+
+	function showNotice($id){
+		$this->db->where('id_notice',$id);
+		$query = $this->db->get('school_notices');
+		return $query;
 	}
 	
 	
