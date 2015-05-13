@@ -56,6 +56,14 @@ class ModelTeachers extends CI_Model
 		return $query;
 	}
 
+	function getStatus($id){
+		$this->db->where('id_teacher',$id);
+		$this->db->select('teacher_status');
+		$query = $this->db->get('school_teachers');
+		return $query;
+
+	}
+
 	function getTeachers(){
 		$this->db->where('teacher_status',true);
 		$this->db->select('id_teacher,teacher_name');

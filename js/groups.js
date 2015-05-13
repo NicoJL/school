@@ -33,6 +33,26 @@ $(function(){
 		deleteStudent(identificador);
 	});
 
+	$('#btnConfirmEditStu').on('click',function(){
+		$(this).attr('disabled','true');
+		updateStudent();
+	});
+
+	$('.btnEditStu').click(function(){
+		clearFields();
+		idStudent = $(this).data('edit');
+		nameS = $(this).parent().parent().find('td:first-child()');
+		apS = $(this).parent().parent().find('td:nth-child(2)');
+		amS = $(this).parent().parent().find('td:nth-child(3)');
+		userS = $(this).parent().parent().find('td:nth-child(4)');
+		$('#txtName').val(nameS.text());
+		$('#txtAp').val(apS.text());
+		$('#txtAm').val(amS.text());
+		$('#txtUser').val(userS.text());
+		$('#txtIdStudent').val(idStudent);
+		$('#modalEditStu').modal('show');
+	});
+
 	$('#btnConfirmFile').click(addFiles);
 
 	$('#btnConfirmPass').click(function(){
@@ -107,6 +127,14 @@ $(function(){
 			timeout:15000
 
 		});
+	}
+
+	function clearFields(){
+		$('#txtName').val('');
+		$('#txtAp').val('');
+		$('#txtAm').val('');
+		$('#txtUser').val('');
+		$('#txtIdStudent').val('');
 	}
 
 	function changeGroup(id,id_student){
@@ -286,6 +314,41 @@ $(function(){
 		}else{
 			$('#pLoader').text('Utiliza un navegador mas moderno para realizar esta operación');
 		}
+	}
+
+	function updateStudent(){
+		formulario = $('#frmEditStudent');
+		$.ajax({
+
+			url:formulario.attr('action'),
+			type:'post',
+			data:formulario.serialize(),
+			dataTye:'text',
+			beforeSend:function(){
+				$('.loader').css('display','inline-block');
+			},
+			success:function(response){
+				if(response){
+					nameS.text($('#txtName').val());
+					apS.text($('#txtAp').val());
+					amS.text($('#txtAm').val());
+					userS.text($('#txtUser').val());	
+				}
+				else
+					alert('hubo conflictos al realizar la edición de datos');
+			},
+			complete:function(){
+				$('#modalEditStu').modal('hide');
+	            $('.loader').css('display','none');
+	            $('#btnConfirmEditStu').removeAttr('disabled');
+			},
+			error:function(xhr,error,estado)
+	        {
+	            alert(xhr+" "+error+" "+estado)
+	        },
+	       timeout:15000
+
+		});
 	}
 
 

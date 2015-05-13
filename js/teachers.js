@@ -13,6 +13,13 @@ $(function(){
 		deleteTeacher(identificador);
 	});
 
+	$('.btnAllow').on('click',function(){
+		idAllow = $(this).data('idacive');
+		hermano = $(this).parent().parent().find('td.tdStatus');
+		load = $(this).parent().parent().find('td.tdStatus span.loading');
+		allowTeacher(idAllow);
+	});
+
 
 	$('.btnConfirmEdit').on('click',function(){
 		$(this).attr('disabled','true');
@@ -32,6 +39,36 @@ $(function(){
 		$('#txtIdTeacher').val(idTeacher);
 		$('#modalEdit').modal('show');
 	});
+
+	function allowTeacher(id){
+		
+		$.ajax({
+			url:ruta,
+			beforeSend:function(){
+				load.css('display','inline-block');
+			},
+			type:'post',
+			data:{'id':id},
+			dataTye:'text',
+			success:function(response){
+				if(response)
+					hermano.html('<span class="glyphicon glyphicon-ok ok" aria-hidden="true"></span>');
+					
+			},
+	        complete:function(xhr)
+	        {
+	            load.css('display','none');
+	           // $('.btnConfirmDelete').removeAttr('disabled');
+	        },
+			error:function(xhr,error,estado)
+	        {
+	            alert(xhr+" "+error+" "+estado);
+	        },
+	       timeout:15000
+
+
+		});
+	}
 
 
 	function cleanFields(){
@@ -53,7 +90,10 @@ $(function(){
 			data:{'id':id},
 			dataTye:'text',
 			success:function(response){
-				hermano.html('<span class="glyphicon glyphicon-remove not" aria-hidden="true"></span>');
+				if(response)
+					hermano.html('<span class="glyphicon glyphicon-remove not" aria-hidden="true"></span>');
+				else
+					hermano.html('<span class="glyphicon glyphicon-ok ok" aria-hidden="true"></span>');
 			},
 	        complete:function(xhr)
 	        {

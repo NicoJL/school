@@ -20,6 +20,12 @@ class ModelStudents extends CI_Model
 		return $query;
 	}
 
+	function editStudent($data){
+		$this->db->query('update school_students set student_name="'.$data['student_name'].'",student_last_name="'.$data['student_last_name'].'",
+			student_second_last_name="'.$data['student_second_last_name'].'", student_user="'.$data['student_user'].'"  
+			where id_student='.$data['id_student'].';');
+		return $this->db->affected_rows();
+	}
 
 	function getStudentsDisabled(){
 		$query = $this->db->query('select s.id_student,s.student_name , s.student_last_name, s.student_second_last_name,s.student_user, s.student_status,g.id_grade, g.group_name

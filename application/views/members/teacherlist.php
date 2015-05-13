@@ -19,10 +19,13 @@
 								ESTATUS
 							</th>
 							<th style="text-align:center;">
-								EDITAR DATOS
+								EDITAR
 							</th>
 							<th style="text-align:center;">
-								DAR DE BAJA
+								DESACTIVAR
+							</th>
+							<th style="text-align:center;">
+								ACTIVAR
 							</th>
 						</tr>
 					</thead>
@@ -35,12 +38,20 @@
 							<td class="tdStatus" style="text-align:center;">
 								<?php if($t->teacher_status){ ?>
 									<span class="glyphicon glyphicon-ok ok" aria-hidden="true"></span>
+									<span class="loading"></span>
 								<?php } else { ?>
 									<span class="glyphicon glyphicon-remove not" aria-hidden="true"></span>
+									<span class="loading"></span>
 								<?php } ?>	
 							</td>
 							<td class="tdButton"><button class="btn btn-primary btn-xs btnEdit" data-idteacher="<?=$t->id_teacher?>" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>
 							<td class="tdButton"><button class="btn btn-danger btn-xs btnDelete" data-identificador="<?=$t->id_teacher?>"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td>
+							<?php if($t->teacher_status){ ?>
+									<td class="tdButton"><button class="btn btn-warning btn-xs btnAllow" disabled><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button></td>
+								<?php } else { ?>
+									<td class="tdButton"><button class="btn btn-warning btn-xs btnAllow" data-idacive="<?=$t->id_teacher?>"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button></td>
+								<?php } ?>	
+
 						</tr>	
 						<?php } ?>
 					</tbody>

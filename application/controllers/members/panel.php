@@ -212,6 +212,12 @@ class Panel extends CI_Controller {
 		}
 	}
 
+	function editStudent(){
+		$data = array();
+		$data = $this->input->post();
+		$ban = $this->ModelStudents->editStudent($data);
+		echo $ban;
+	}
 
 	function editTeacher(){
 		$data = array();
@@ -442,7 +448,15 @@ class Panel extends CI_Controller {
 
 	function updateStatus(){
 		$id = $this->input->post('id');
-		$data['teacher_status'] = false;
+		$status = 0;
+		$query = $this->ModelTeachers->getStatus($id);
+		foreach($query->result() as $row){
+			$status = $row->teacher_status;
+		}
+		if($status == 1 || $status == '1')
+			$data['teacher_status'] = false;
+		else
+			$data['teacher_status'] = true;
 		$ban = $this->ModelTeachers->changeStatus($id,$data);
 		echo $ban;
 

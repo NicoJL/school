@@ -67,18 +67,10 @@
 					<tbody>
 						<?php foreach($liststudents->result() as $ls) { ?>
 							<tr>
-								<td>
-									<?=$ls->student_name?>
-								</td>
-								<td>
-									<?=$ls->student_last_name?>
-								</td>
-								<td>
-									<?=$ls->student_second_last_name?>
-								</td>
-								<td>
-									<?=$ls->student_user?>
-								</td>
+								<td><?=$ls->student_name?></td>
+								<td><?=$ls->student_last_name?></td>
+								<td><?=$ls->student_second_last_name?></td>
+								<td><?=$ls->student_user?></td>
 								<td class="tdStatus" style="text-align:center;">
 									<?php if($ls->student_status){ ?>
 										<span class="glyphicon glyphicon-ok ok" aria-hidden="true"></span>
@@ -86,7 +78,7 @@
 										<span class="glyphicon glyphicon-remove not" aria-hidden="true"></span>
 									<?php } ?>	
 								</td>
-								<td class="tdButton"><button class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>
+								<td class="tdButton"><button class="btn btn-primary btn-xs btnEditStu" data-edit="<?=$ls->id_student?>" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>
 								<td class="tdButton"><button class="btn btn-danger btn-xs btnDelete" data-identificador="<?=$ls->id_student?>"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></button></td>
 								<td class="tdButton"><button class="btn btn-warning btn-xs btnChangeG" data-ide="<?=$ls->id_student?>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>
 							</tr>
@@ -242,6 +234,45 @@
       <div class="modal-footer">
       	<span class="loader"></span>
         <button type="button" class="btnConfirmFile btn btn-primary" id="btnConfirmFile">Agregar archivo</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal -->
+
+<!-- Modal Edit Students -->
+<div class="modal fade" id="modalEditStu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Editar datos</h4>
+      </div>
+      <div class="modal-body">
+      	<form action="<?=base_url()?>members/panel/editStudent" id="frmEditStudent" method="post">
+      		<div class="form-group">
+      			<label for="txtUser">Usuario</label>
+      			<input type="text" name="student_user" id="txtUser" class="form-control" />
+      			<input type="hidden" id="txtIdStudent" name="id_student" />
+      		</div>
+      		<div class="form-group">
+      			<label for="txtName">Nombre</label>
+      			<input type="text" name="student_name" id="txtName" class="form-control" />
+      		</div>
+      		<div class="form-group">
+      			<label for="txtAp">Apellido Paterno</label>
+      			<input type="text" name="student_last_name" id="txtAp" class="form-control" />
+      		</div>
+      		<div class="form-group">
+      			<label for="txtAm">Apellido Materno</label>
+      			<input type="text" name="student_second_last_name" id="txtAm" class="form-control" />
+      		</div>
+      	</form>
+      </div>
+      <div class="modal-footer">
+      	<span class="loader"></span>
+        <button type="button" class="btnConfirmEditStu btn btn-primary" id="btnConfirmEditStu">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
