@@ -40,6 +40,12 @@ class ModelNews extends CI_Model
 
 	}
 
+	function getNoticePro(){
+		$this->db->where('notice_prominent',true);
+		$query = $this->db->get('school_notices');
+		return $query;
+	}
+
 	function showNotice($id){
 		$this->db->where('id_notice',$id);
 		$query = $this->db->get('school_notices');
