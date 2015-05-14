@@ -22,7 +22,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-default navMenu" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,8 +41,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-expanded="false"><?=$user.' '?> <span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Perfil</a></li>
-                                    <li><a href="#">Editar perfil</a></li>
+                                    <li><a href="<?=base_url()?>members/panel/editPerfil">Perfil</a></li>
                                     <li><a href="<?=base_url()?>members/panel/closeSesion">Cerrar sesión</a></li>
                                 </ul>
                             </li>

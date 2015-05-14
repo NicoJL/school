@@ -16,6 +16,9 @@
 								CONTRASEÑA
 							</th>
 							<th>
+								TIPO
+							</th>
+							<th>
 								ESTATUS
 							</th>
 							<th style="text-align:center;">
@@ -35,6 +38,7 @@
 							<td><?=$t->teacher_name?></td>
 							<td><?=$t->teacher_nick_name?></td>
 							<td><?=$t->teacher_password?></td>
+							<td style="text-align:center;"><span class="spntype"><?=$t->id_type?></span></td>
 							<td class="tdStatus" style="text-align:center;">
 								<?php if($t->teacher_status){ ?>
 									<span class="glyphicon glyphicon-ok ok" aria-hidden="true"></span>
@@ -108,6 +112,14 @@
       			<input type="password" name="teacher_password" id="txtPass" class="form-control" />
       			<input type="hidden" name="id_teacher" id="txtIdTeacher" />
       		</div>
+      		<div class="form-group">
+				<label for="lstTipos">Tipo</label>
+				<select name="id_type" id="lstTipos" class="form-control">
+					<?php foreach ($types->result() as $t) { ?>
+						<option value="<?=$t->id_type?>"><?=$t->type_name?></option>
+					<?php } ?>
+				</select>
+			</div>
       	</form>
       </div>
       <div class="modal-footer">

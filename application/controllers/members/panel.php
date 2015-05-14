@@ -212,6 +212,42 @@ class Panel extends CI_Controller {
 		}
 	}
 
+	function editPerfil(){
+		$this->form_validation->set_rules('txtName', 'Nombre','required');
+		$this->form_validation->set_rules('txtUser', 'Usuario','required|trim');
+		$this->form_validation->set_rules('txtPass', 'Contraseña', 'trim|required');
+		if($this->form_validation->run()==false){
+			$this->frmPerfil('');
+		}
+		else{
+			$data['id_teacher'] = $this->input->post('txtId');
+			$data['id_type'] = $this->input->post('txtIdType');
+			$data['teacher_name'] = $this->input->post('txtName');
+			$data['teacher_nick_name'] = $this->input->post('txtUser');
+			$data['teacher_password'] = $this->input->post('txtPass');
+			$query = $this->ModelTeachers->getPassT($data['id_teacher']);
+			if($query->num_rows() > 0){
+				foreach ($query->result() as $t) {
+					if(strcmp($data['teacher_password'], $t->teacher_password) != 0)
+						$data['teacher_password'] = md5($data['teacher_password']);
+				}
+			}
+			$check = $this->ModelTeachers->checkTeacher($data['teacher_nick_name']);
+			if($check->num_rows() > 0 && strcmp($data['teacher_nick_name'],$this->session->userdata('user'))!=0)
+				$cadena = '<div class="alert alert-danger" role="alert">El nombre de usuario '.$data['teacher_nick_name'].' ya esta dado de alta</div>';
+			else{
+				$query = $this->ModelTeachers->editTeacher($data);
+				if($query > 0){
+					$cadena = '<div class="alert alert-success" role="alert">Se editaron los datos correctamente</div>';
+					$this->session->set_userdata('user',$data['teacher_nick_name']);
+				}
+				else
+					$cadena = '<div class="alert alert-danger" role="alert">No se modificaron datos</div>';
+			}
+			$this->frmPerfil($cadena);
+		}
+	}
+
 	function editStudent(){
 		$data = array();
 		$data = $this->input->post();
@@ -290,6 +326,26 @@ class Panel extends CI_Controller {
 		$this->load->view('members/footer');
 		$this->load->view('members/scripts');
 		$this->load->view('members/tinymce');
+		$this->load->view('members/endfile');
+
+	}
+
+	function frmPerfil($msj){
+		if(!$this->session->userdata('user')){
+			redirect(base_url().'members/panel');
+		}
+		$data['title'] = "Perfil de usuario";
+		$data['user'] = $this->session->userdata('user');
+		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['msj'] = $msj;
+		$data['usuario'] = $this->ModelTeachers->selectTeacher($this->session->userdata('id_user'));
+		$data['ruta'] = 'perfil.js';
+		$this->load->view('members/header',$data);
+		$this->load->view('members/wrapper');
+		$this->load->view('members/home');
+		$this->load->view('members/perfil');
+		$this->load->view('members/footer');
+		$this->load->view('members/scripts');
 		$this->load->view('members/endfile');
 
 	}
@@ -391,6 +447,7 @@ class Panel extends CI_Controller {
 		$data['user'] = $this->session->userdata('user');
 		$data['teachers'] = $this->ModelTeachers->getAllTeacher();
 		$data['options'] = $this->ModelTeachers->getOptions($this->session->userdata('type_user'));
+		$data['types'] = $this->ModelTeachers->getTypes();
 		$data['ruta'] = 'teachers.js';
 		$this->load->view('members/header',$data);
 		$this->load->view('members/wrapper');

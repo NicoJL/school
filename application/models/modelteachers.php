@@ -36,7 +36,7 @@ class ModelTeachers extends CI_Model
 
 
 	function getAllTeacher(){
-		$this->db->select('id_teacher,teacher_name,teacher_nick_name,teacher_password,teacher_status');
+		$this->db->select('id_teacher,id_type,teacher_name,teacher_nick_name,teacher_password,teacher_status');
 		$query=$this->db->get('school_teachers');
 		return $query;
 	}
@@ -79,10 +79,16 @@ class ModelTeachers extends CI_Model
 
 
 	function editTeacher($data){
-		$this->db->query('update school_teachers set teacher_name="'.$data['teacher_name'].'", 
+		$this->db->query('update school_teachers set id_type='.$data['id_type'].',teacher_name="'.$data['teacher_name'].'", 
 			teacher_nick_name="'.$data['teacher_nick_name'].'",teacher_password="'.$data['teacher_password'].'" 
 			where id_teacher='.$data['id_teacher'].';');
 		return $this->db->affected_rows();
+	}
+
+	function selectTeacher($id){
+		$this->db->where('id_teacher',$id);
+		$query = $this->db->get('school_teachers');
+		return $query;
 	}
 
 }

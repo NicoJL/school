@@ -30,6 +30,7 @@ $(function(){
 	$('.btnEdit').click(function(){
 		cleanFields();
 		idTeacher = $(this).data('idteacher');
+		idType = $(this).parent().parent().find('td span.spntype');
 		nameT = $(this).parent().parent().find('td:first-child()');
 		userT = $(this).parent().parent().find('td:nth-child(2)');
 		passT = $(this).parent().parent().find('td:nth-child(3)');
@@ -37,6 +38,11 @@ $(function(){
 		$('#txtUser').val(userT.text());
 		$('#txtPass').val(passT.text());
 		$('#txtIdTeacher').val(idTeacher);
+		$('#lstTipos option').each(function(){
+			if($(this).val() == parseInt(idType.text()))
+				$(this).attr('selected',true);
+		});
+
 		$('#modalEdit').modal('show');
 	});
 
@@ -128,6 +134,7 @@ $(function(){
 					nameT.text($('#txtNameT').val());
 					userT.text($('#txtUser').val()); 
 					passT.text($('#txtPass').val()); 
+					idType.text($('#lstTipos option:selected').val());
 				}
 				else
 					alert('hubo conflictos al realizar la edición de datos');
