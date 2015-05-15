@@ -30,6 +30,13 @@ class ModelNews extends CI_Model
 		return $query;
 	}
 
+	function getNoticeCat($cat,$limite){
+		$this->db->where('id_notice_category',$cat);
+		$this->db->limit($limite);
+		$query = $this->db->get('school_notices');
+		return $query;
+	}
+
 	function getNews(){
 		$this->db->select('*');
 		$this->db->from('school_notices');
@@ -40,8 +47,19 @@ class ModelNews extends CI_Model
 
 	}
 
+	function getNoticeSelec($id){
+		$this->db->where('id_notice',$id);
+		$this->db->select('*');
+		$this->db->from('school_notices');
+		$this->db->join('school_teachers','school_teachers.id_teacher=school_notices.id_teacher');
+		$query = $this->db->get();
+		return $query;
+
+	}
+
 	function getNoticePro(){
 		$this->db->where('notice_prominent',true);
+		$this->db->limit(8);
 		$query = $this->db->get('school_notices');
 		return $query;
 	}

@@ -16,12 +16,25 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		$data['slides'] = $this->ModelNews->getNoticePro();
+		$data['notices'] = $this->ModelNews->getNoticeCat(1,8);
+		$data['events'] = $this->ModelNews->getNoticeCat(3,4);
+		$data['avisos'] = $this->ModelNews->getNoticeCat(2,3);
 		$this->load->view('includes/header');
 		$this->load->view('inicio',$data);
+		$this->load->view('includes/prefooter');
 		$this->load->view('includes/footer');
 		
 	}
-}
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+	function noticias(){
+		$data['slides'] = $this->ModelNews->getNoticePro();
+		$data['notices'] = $this->ModelNews->getNoticeCat(1,8);
+		$data['events'] = $this->ModelNews->getNoticeCat(3,4);
+		$data['avisos'] = $this->ModelNews->getNoticeCat(2,3);
+		$this->load->view('includes/header');
+		$this->load->view('inicio',$data);
+		$this->load->view('includes/prefooter');
+		$this->load->view('includes/footer');
+	}
+}
+?>

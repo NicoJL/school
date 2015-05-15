@@ -38,8 +38,12 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = "inicio/index";
 $route['404_override'] = '';
+
+$route['avisos/(:num)'] = "avisos/mostrar/";
+
+
 
 
 /* End of file routes.php */

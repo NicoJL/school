@@ -5,6 +5,13 @@ Options FollowSymLinks
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?/$1 [L]
+
+    RewriteCond %{QUERY_STRING} ^[^=]*$
+
+   RewriteCond %{QUERY_STRING} %2d|\- [NC]
+
+   RewriteRule .? - [F,L]
+   
 </IfModule> 
  
 <IfModule !mod_rewrite.c>
