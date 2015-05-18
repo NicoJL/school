@@ -26,6 +26,17 @@ class Inicio extends CI_Controller {
 		
 	}
 
+	function contacto(){
+		
+	}
+
+	function escuela(){
+		$this->load->view('includes/header');
+		$this->load->view('escuela');
+		$this->load->view('includes/prefooter');
+		$this->load->view('includes/footer');
+	}
+
 	function noticias(){
 		$data['slides'] = $this->ModelNews->getNoticePro();
 		$data['notices'] = $this->ModelNews->getNoticeCat(1,8);
