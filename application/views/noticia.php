@@ -4,13 +4,13 @@
 			<?php foreach($noticia->result() as $row){ ?>
 			<h1><?=$row->notice_title?></h1>
 			<figure>
-				<img src="" alt="">
+				<img src="<?=base_url()?>uploads/<?=$row->notice_picture?>" alt="noticia">
 			</figure>
 			<p>
 				<?=$row->notice_content?>
 			</p>
 			<p>
-				Publicado por
+				<cite>Publicado por <?=$row->teacher_name?> </cite>
 			</p>
 			<?php } ?>
 		</div>

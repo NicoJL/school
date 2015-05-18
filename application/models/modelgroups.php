@@ -69,6 +69,13 @@ class ModelGroups extends CI_Model
 	}
 
 
+	function checkAlumno($usuario){
+		$query = $this->db->query('select (select max(id) from school_groups_students where 
+			id_student = school_students.id_student)as mayor,id_student from school_students
+			where student_user="'.$usuario.'" and student_status=true;');
+		return $query;
+	}
+
 	function getGrades(){
 		$query=$this->db->get('school_grades');
 		return $query;
@@ -141,6 +148,15 @@ class ModelGroups extends CI_Model
 					id=(select max(id)from school_groups_students where id_student=school_students.id_student))
 					and student_status = true;');
 		return $query;
+	}
+
+	function showGroup($id,$usuario,$contraseña){
+		$query = $this->db->query('select s.student_user , s.id_student ,g.id_group, g.id_grade , 
+		g.group_name from school_students s inner join school_groups_students sg on s.id_student = sg.id_student 
+		join school_groups g on sg.id_group = g.id_group where s.student_user = "'.$usuario.'" 
+		and g.group_password = "'.$contraseña.'" and sg.id = '.$id.';');
+		return $query;
+
 	}
 	
 }

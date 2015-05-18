@@ -10,9 +10,6 @@
 								TÍTULO
 							</th>
 							<th>
-								CONTENIDO
-							</th>
-							<th>
 								IMAGEN
 							</th>
 							<th>
@@ -30,7 +27,6 @@
 					<?php foreach($news->result() as $nw){ ?>
 						<tr class="trNews">
 							<td><?=$nw->notice_title?></td>
-							<td><p><?=substr($nw->notice_content, 0,50)?></p></td>
 							<td class="tdImagen"><img src="<?=base_url()?>uploads/<?=$nw->notice_picture?>" alt="" /></td>
 							<td><?=$nw->teacher_name?></td>
 							<td class="tdButton"><a href="<?=base_url()?>members/panel/editNew/<?=$nw->id_notice?>"><button class="btn btn-primary btn-xs btnEdit" data-identificator="<?=$nw->id_notice?>" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></a></td>

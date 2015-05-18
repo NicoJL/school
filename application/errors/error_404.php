@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>404 Page Not Found</title>
+<title>PAGINA NO ENCONTRADA</title>
 <style type="text/css">
 
 ::selection{ background-color: #E13300; color: white; }
@@ -45,7 +45,12 @@ code {
 #container {
 	margin: 10px;
 	border: 1px solid #D0D0D0;
-	-webkit-box-shadow: 0 0 8px #D0D0D0;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 200px;
+	min-height: 300px;
+	-webkit-box-shadow: 0 0 8px #8C1111;
 }
 
 p {
@@ -55,8 +60,7 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		LO QUE BUSCAS NO ESTA AQUI
 	</div>
 </body>
 </html>

@@ -16,8 +16,8 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		$data['slides'] = $this->ModelNews->getNoticePro();
-		$data['notices'] = $this->ModelNews->getNoticeCat(1,8);
-		$data['events'] = $this->ModelNews->getNoticeCat(3,4);
+		$data['notices'] = $this->ModelNews->getNoticeCat(1,6);
+		$data['events'] = $this->ModelNews->getNoticeCat(3,6);
 		$data['avisos'] = $this->ModelNews->getNoticeCat(2,3);
 		$this->load->view('includes/header');
 		$this->load->view('inicio',$data);

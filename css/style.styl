@@ -6,8 +6,15 @@ azul = #286090
 verde = #11992E
 principal = #8C1111
 
+contenedorNotices()
+	border 1px solid rgba(principal,0.8)
+	border-radius 3px
+	box-shadow 0px 1px 3px rgba(#000,0.5)
+	min-height 500px
+
 body,html
 	//background rgba(#cbcbcb,0.5)	
+	font-family: 'Open Sans', sans-serif;
 	height 100%
 	margin 0
 	max-width 100%
@@ -31,20 +38,32 @@ body,html
 			height 100%
 	
 .carousel-inner>.item>img, .carousel-inner>.item>a>img
-	max-height 100%
-	width 100%	
+	max-height 100% !important
+	width 100%	!important
 	
 .containerNotices
-	border 1px solid rgba(principal,0.8)
-	border-radius 3px
-	box-shadow 0px 1px 3px rgba(#000,0.5)
-	min-height 500px
+	contenedorNotices()
 	
 	div.row
 		div
 			margin-top 50px
+			
+			figure 
+				box-shadow 0px 3px 3px rgba(#000,0.5)
+				height 300px
+				max-height 300px
+				width 100%
+				
+				img 
+					border-radius 3px
+					height 100%
+					width 100%
+
 			h1
 				text-align center
+				
+			p 
+				text-align justify	
 
 .container-notices
 	margin 20px auto	
@@ -52,7 +71,49 @@ body,html
 .divAviso
 	h3
 		text-align center
+
+.divCategoria
+	contenedorNotices()	
 		
+	div.row
+		margin-top 120px	
+		
+		
+		.divParent
+			
+			box-shadow 0px 2px 2px rgba(#000,0.5)
+			padding 10px
+			
+			a 
+				color #000
+				
+				&:hover
+					.divTitle
+						text-decoration underline
+				
+			
+				div.divContent
+					height 100px
+					max-height 100px
+					overflow hidden
+				
+				div.divImage
+					
+					figure
+						height 100px
+						max-height 100px
+						text-align center
+						width 80%
+						
+						img 
+							height 100%
+							width 80%
+							
+				.divTitle
+					color principal
+					line-height 60px			
+				
+			
 
 .divElement
 	border-radius 3px
@@ -85,19 +146,32 @@ body,html
 			
 	
 .divEvents
-	border 1px solid rgba(verde,0.5)				
+	border 1px solid rgba(verde,0.5)	
+	
+.divLogin
+	min-height 500px	
+	
+	div 
+		div.login 
+			
+			border 1px solid principal
+			border-radius 5px
+			box-shadow 0px 3px 3px rgba(principal,0.5)
+			margin-top 60px		
+			padding 10px	
 
 	
 .divNews
 	border 1px solid #cbcbcb
 	border-top none
 	border-radius 3px	
-	box-shadow 0px 2px 3px rgba(#000,0.5)
+	box-shadow 0px 5px 5px rgba(principal,0.8) 
 	margin 1px auto 20px
 	padding 10px
 	
 .divNotices
 	border 1px solid rgba(principal,0.5)	
+	
 	
 .divSlogan
 	
@@ -117,7 +191,9 @@ body,html
 		
 .footer
 	color white
-	margin-top 20px		
+	margin-top 20px	
+	max-width 100%	
+	width 100%
 	
 	.footer-end
 		background-color rgba(verde,0.6)
@@ -170,11 +246,16 @@ nav.menu
 	
 	&:hover
 		color principal
+		
+.not 
+	color red	!important	
 	
 .slide
 	margin-top -22px	
 	z-index 10
 	
+.title 
+	color principal	
 
 @media screen and (max-width:960px)
 	.divSlogan

@@ -6,6 +6,7 @@
 	<title>TITULO</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>css/normalize.css">
 	<link rel="stylesheet" href="<?=base_url()?>css/style.css">
 	
 </head>
@@ -26,17 +27,17 @@
 			</div>
 			<div class="collapse navbar-collapse navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Inicio</a></li>
+					<li><a href="<?=base_url()?>">Inicio</a></li>
 					<li><a href="#">Escuela</a></li>
-					<li><a href="galeria.html">Noticias</a></li>
-					<li><a href="contacto.html">Avisos</a></li>
-					<li><a href="contacto.html">Eventos</a></li>
-					<li><a href="contacto.html">Alumnos</a></li>
+					<li><a href="<?=base_url()?>avisos/categoria/1">Noticias</a></li>
+					<li><a href="<?=base_url()?>avisos/categoria/2">Avisos</a></li>
+					<li><a  href="<?=base_url()?>avisos/categoria/3" >Eventos</a></li>
+					<li><a href="<?=base_url()?>alumnos">Alumnos</a></li>
 					<li><a href="contacto.html">Contacto</a></li>
 				</ul>
-				<form class="navbar-form navbar-left" role="search">
+				<form method="post" action="<?=base_url()?>avisos/busqueda" class="navbar-form navbar-left" role="search">
 		        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Búsqueda">
+			          <input type="text" name="txtSearch" class="form-control" placeholder="Búsqueda" required />
 			        </div>
 	        		<button type="submit" class="btn btn-default btnSearch">Ir</button>
       			</form>

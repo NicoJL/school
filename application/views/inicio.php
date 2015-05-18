@@ -10,7 +10,7 @@
 				<?php } else { ?>
 				<div class="item">
 				<?php } ?>
-					<img src="<?=base_url()?>uploads/<?=$s->notice_picture?>" alt="noticia" />
+					<a href="<?=base_url()?>avisos/<?=$s->id_notice?>"><img src="<?=base_url()?>uploads/<?=$s->notice_picture?>" alt="noticia" /></a>
 					<!--<div class="carousel-caption">
 			        	<img src="<?=base_url()?>uploads/<?=$s->notice_picture?>" alt="noticia" />
 			     	</div>-->
