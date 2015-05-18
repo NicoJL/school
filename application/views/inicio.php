@@ -106,6 +106,9 @@
 					<figure>
 						<img src="<?=base_url()?>img/logo.png" alt="">
 					</figure>
+					<p class="pDir">
+						AV. CONSTITUCIÓN NORTE #200 TELÉFONO (313) 32 7 02 05 EL RANCHITO , COAHUAYANA MICHOACÁN
+					</p>
 					<p>
 						Preparando a las mentes del mañana
 					</p>
