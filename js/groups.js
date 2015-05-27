@@ -2,7 +2,7 @@ $(function(){
 
 	var ruta = $('#ruta').val() , rutaChangeG = $('#rutaChangeG').val(),
 	rutaChangeT = $('#rutaChangeT').val() , groupId = $('#txtIdGroupT').val(),
-	rutaPass = $('#rutaChangePass').val() , nameFile;
+	rutaPass = $('#rutaChangePass').val() , nameFile, btnAccion = $('#tblStudents');
 	$('#spnPass').text('');
 	$('#btnConfirmPass').attr('disabled','true');
 
@@ -10,7 +10,8 @@ $(function(){
 		$('#frmGroups').submit();
 	});
 
-	$('.btnDelete').click(function(){
+	//$('.btnDelete').click(function(){
+	btnAccion.on('click','tr .btnDelete',function(){			
 		 identificador = $(this).data('identificador');
 		$('#myModal').modal('show');
 		hermano = $(this).parent().parent().find('td.tdStatus');
@@ -22,7 +23,8 @@ $(function(){
 		changeGroup(group,idS);
 	});
 
-	$('.btnChangeG').click(function(){
+	//$('.btnChangeG').click(function(){
+	btnAccion.on('click','tr .btnChangeG',function(){	
 		idS = $(this).data('ide');
 		$('#modalChangeG').modal('show');
 		ren = $(this).parent().parent();
@@ -38,7 +40,8 @@ $(function(){
 		updateStudent();
 	});
 
-	$('.btnEditStu').click(function(){
+	//$('.btnEditStu').click(function(){
+	btnAccion.on('click','tr .btnEditStu',function(){		
 		clearFields();
 		idStudent = $(this).data('edit');
 		nameS = $(this).parent().parent().find('td:first-child()');

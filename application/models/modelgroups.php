@@ -83,6 +83,8 @@ class ModelGroups extends CI_Model
 
 	function groups(){
 		$this->db->select('id_group,id_grade, group_name');
+		$this->db->order_by('id_grade','asc');
+		$this->db->order_by('group_name','asc');
 		$query = $this->db->get('school_groups');
 		return $query;
 	}
@@ -91,6 +93,8 @@ class ModelGroups extends CI_Model
 	function groupsType($id){
 		$this->db->where('id_teacher',$id);
 		$this->db->select('id_group,id_grade, group_name');
+		$this->db->order_by('id_grade','asc');
+		$this->db->order_by('group_name','asc');
 		$query = $this->db->get('school_groups');
 		return $query;
 	}

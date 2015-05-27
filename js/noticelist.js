@@ -1,8 +1,9 @@
 $(function(){
 
-	var ruta = $('#rutaDel').val();
+	var ruta = $('#rutaDel').val(), btnAccion = $('#tblNotices');
 
-	$('.btnDelete').click(function(){
+	//$('.btnDelete').click(function(){
+	btnAccion.on('click','tr .btnDelete',function(){		
 		idNew = $(this).data('identificador');
 		ren = $(this).parent().parent();
 		$('#btnConfirmDel').removeAttr('disabled');

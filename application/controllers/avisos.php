@@ -42,7 +42,7 @@ class Avisos extends CI_Controller {
 			$cantidad = $cant->cantidad;
 		$config['base_url']=base_url().'avisos/categoria/'.$id.'/';
 		$config['total_rows'] = $cantidad;
-		$config['per_page'] = 2; 
+		$config['per_page'] = 10; 
 		$connfig['num_links']=5;
 		$config['first_link']="Primero";
 		$config['last_link']="Último";

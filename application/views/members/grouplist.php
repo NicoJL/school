@@ -64,7 +64,7 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tblStudents">
 						<?php foreach($liststudents->result() as $ls) { ?>
 							<tr>
 								<td><?=$ls->student_name?></td>
@@ -93,10 +93,13 @@
 	<button class="btn btn-md btn-primary" id="btnShowFiles">Ver archivos</button>
 	<div class="row">
 		<div class="col-xs-10 divContainerFiles" id="divContainerFiles">
+    <?php if($files->num_rows() > 0){ ?>
 			<?php foreach($files->result() as $f){?>
 				<a href="<?=base_url()?>uploads/<?=$f->file_name?>" target="_blank" title="visualizar/descargar archivo"><?=$f->file_name?></a>
 				<p style="font-size:10px;">Subido el <?=$f->group_file_date?></p>
-			<?php } ?>
+			<?php } } else { ?>
+      <p>No hay archivos en este grupo</p>
+      <?php } ?>
 		</div>
 	</div>
 </div>

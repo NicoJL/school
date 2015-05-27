@@ -6,6 +6,24 @@ class ModelStudents extends CI_Model
 		parent::__construct();
 	}
 
+	function addStudent($data){
+		$this->db->trans_start();
+		$stu = $this->db->query('insert into school_students values(null,"'.$data['student_user'].'",
+			"'.$data['student_name'].'","'.$data['student_last_name'].'",
+			"'.$data['student_second_last_name'].'",true);');
+		if($stu){
+			$this->db->select_max('id_student','mayor');
+			$query = $this->db->get('school_students');
+			foreach($query->result() as $max){
+				$id_student = $max->mayor;
+			}
+			$result = $this->db->query('insert into school_groups_students(id_group,id_student)values
+				('.$data['id_group'].','.$id_student.');');
+		}
+		$this->db->trans_complete();
+		return $result;
+
+	}
 
 	function allowStudent($id,$data){
 		$this->db->where('id_student',$id);
@@ -17,6 +35,12 @@ class ModelStudents extends CI_Model
 
 	function changeGroup($data){
 		$query = $this->db->query('insert into school_groups_students values(null,'.$data['id_group'].','.$data['id_student'].')');
+		return $query;
+	}
+
+	function checkUser($user){
+		$this->db->where('student_user',$user);
+		$query = $this->db->get('school_students');
 		return $query;
 	}
 

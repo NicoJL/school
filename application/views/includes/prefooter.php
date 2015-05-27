@@ -4,7 +4,7 @@
 			<div class="col-sm-3 col-sm-offset-2">
 				<ul class="footer_menu">
 					<li><a href="<?=base_url()?>">Inicio</a></li>
-					<li><a href="#">Escuela</a></li>
+					<li><a href="<?=base_url()?>inicio/escuela">Conócenos</a></li>
 					<li><a href="<?=base_url()?>avisos/categoria/1">Noticias</a></li>
 					<li><a href="<?=base_url()?>avisos/categoria/2">Avisos</a></li>
 					<li><a  href="<?=base_url()?>avisos/categoria/3" >Eventos</a></li>
@@ -13,7 +13,7 @@
 			<div class="col-sm-3">
 				<ul class="footer_menu">
 					<li><a href="<?=base_url()?>alumnos">Alumnos</a></li>
-					<li><a href="contacto.html">Contacto</a></li>
+					<li><a href="<?=base_url()?>contacto">Contacto</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-3">

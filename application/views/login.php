@@ -18,6 +18,9 @@
 				<?=validation_errors()?>
 			</div>
 			<span class="not"><?=$msj?></span>
+			<div>
+				<a href="<?=base_url()?>alumnos/registro">Registrate</a>
+			</div>
 		</div>
 	</div>
 </div>

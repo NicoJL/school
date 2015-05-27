@@ -32,7 +32,7 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tblTeachers">
 						<?php foreach($teachers->result() as $t){ ?>
 						<tr>
 							<td><?=$t->teacher_name?></td>

@@ -1,7 +1,10 @@
 $(function(){
 
-	var ruta = $('#ruta').val() , rutaEdit = $('#rutaEdit').val();
-	$('.btnDelete').click(function(){
+	var ruta = $('#ruta').val() , rutaEdit = $('#rutaEdit').val(),
+	btnAccion = $('#tblTeachers');
+
+	//$('.btnDelete').click(function(){
+	btnAccion.on('click','tr .btnDelete',function(){	
 		 identificador = $(this).data('identificador');
 		$('#myModal').modal('show');
 		hermano = $(this).parent().parent().find('td.tdStatus');
@@ -13,7 +16,8 @@ $(function(){
 		deleteTeacher(identificador);
 	});
 
-	$('.btnAllow').on('click',function(){
+	//$('.btnAllow').on('click',function(){
+	btnAccion.on('click','tr .btnAllow',function(){		
 		idAllow = $(this).data('idacive');
 		hermano = $(this).parent().parent().find('td.tdStatus');
 		load = $(this).parent().parent().find('td.tdStatus span.loading');
@@ -27,7 +31,8 @@ $(function(){
 	});
 
 
-	$('.btnEdit').click(function(){
+	//$('.btnEdit').click(function(){
+	btnAccion.on('click','tr .btnEdit',function(){
 		cleanFields();
 		idTeacher = $(this).data('idteacher');
 		idType = $(this).parent().parent().find('td span.spntype');

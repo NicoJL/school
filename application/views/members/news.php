@@ -23,7 +23,7 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tblNotices">
 					<?php foreach($news->result() as $nw){ ?>
 						<tr class="trNews">
 							<td><?=$nw->notice_title?></td>

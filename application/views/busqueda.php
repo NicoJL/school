@@ -14,11 +14,7 @@
 							<?=$row->notice_title?>
 						</p>
 					</div>
-					<div class="col-sm-6 divContent">
-						<p>
-							<?=substr($row->notice_content, 0,300)?>
-						</p>
-					</div>
+					
 				</a>
 			</div>
 			<?php } } else { ?>

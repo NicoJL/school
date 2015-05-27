@@ -78,6 +78,16 @@ class Alumnos extends CI_Controller {
 		redirect(base_url());
 	}
 
+	function frmRegistro($msj){
+		$data['title'] = "Registro de alumnos";
+		$data['msj'] = $msj;
+		$data['groups'] = $this->ModelGroups->groups();
+		$this->load->view('includes/header');
+		$this->load->view('registro',$data);
+		$this->load->view('includes/prefooter');
+		$this->load->view('includes/footer');
+	}
+
 	function panel(){
 		if(!$this->session->userdata('alumno')){
 			redirect(base_url().'alumnos/index');
@@ -89,6 +99,38 @@ class Alumnos extends CI_Controller {
 		$data['idgrupo'] = $this->session->userdata('idgrupo');
 		$data['files'] = $this->ModelGroups->getFile($this->session->userdata('idgrupo'));
 		$this->load->view('panel',$data);
+	}
+
+
+	function registro(){
+		$this->form_validation->set_rules('lstGroup', 'Grupo','required');
+		$this->form_validation->set_rules('student_name', 'Nombre','required');
+		$this->form_validation->set_rules('student_last_name', 'Apellido Materno', 'required');
+		$this->form_validation->set_rules('student_second_last_name', 'Apellido Paterno', 'required');
+		$this->form_validation->set_rules('student_user', 'Usuario','required|trim');
+		
+		if($this->form_validation->run()==false){
+			$this->frmRegistro("");
+		}
+		else{
+			$data['student_user'] = $this->input->post('student_user');
+			$data['student_name'] = $this->input->post('student_name');
+			$data['student_last_name'] = $this->input->post('student_last_name');
+			$data['student_second_last_name'] = $this->input->post('student_second_last_name');
+			$data['id_group'] = $this->input->post('lstGroup');
+			$check = $this->ModelStudents->checkUser($this->input->post('student_user'));
+			if($check->num_rows() > 0)
+				$cadena = '<div class="alert alert-danger" role="alert">El usuario '.$data['student_user'].' ya esta dado de alta</div>';
+			else{
+				$query = $this->ModelStudents->addStudent($data);
+				if($query > 0)
+					$cadena = '<div class="alert alert-success" role="alert">Registro correcto</div>';
+				else
+					$cadena = '<div class="alert alert-danger" role="alert">Hubo un error consulte con su proveedor de software</div>';
+			}
+			$this->frmRegistro($cadena);
+			
+		}
 	}
 
 	
